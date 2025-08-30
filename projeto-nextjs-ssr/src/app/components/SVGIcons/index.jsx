@@ -34,7 +34,7 @@ const SVGIcon = ({ iconName, width, height, fill }) => {
     ),
   };
 
-  return icons[iconName] || null;
+  return icons[iconName];
 };
 
 SVGIcon.defaultProps = {
