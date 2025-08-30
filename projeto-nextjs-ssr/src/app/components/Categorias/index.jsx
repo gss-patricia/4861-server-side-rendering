@@ -12,7 +12,7 @@ export const Categorias = ({ categorias }) => {
               <Image
                 width={130}
                 height={157}
-                src={categoria.imageSrc}
+                src={categoria.image_src}
                 alt={categoria.name}
                 style={{
                   objectFit: "contain",
@@ -20,7 +20,7 @@ export const Categorias = ({ categorias }) => {
                 quality={100}
               />
             </div>
-            <p className={styles.title}>{categoria.nome}</p>
+            <p className={styles.title}>{categoria.name}</p>
           </div>
         ))}
       </div>
