@@ -1,4 +1,4 @@
-const SVGIcon = ({ iconName, width, height, fill }) => {
+const SVGIcon = ({ iconName, width = "24", height = "24", fill = "none" }) => {
   const icons = {
     diamond: (
       <svg width={width} height={height} viewBox="0 0 72 73" fill={fill}>
@@ -35,12 +35,6 @@ const SVGIcon = ({ iconName, width, height, fill }) => {
   };
 
   return icons[iconName];
-};
-
-SVGIcon.defaultProps = {
-  width: "24",
-  height: "24",
-  fill: "none",
 };
 
 export default SVGIcon;
