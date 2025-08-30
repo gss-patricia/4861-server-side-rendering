@@ -27,6 +27,7 @@ export const Produtos = ({ produtos }) => {
                   objectFit: "cover",
                 }}
                 className={styles.imagem}
+                // unoptimized={true}  // Descomente se quiser pular otimização
               />
             </figure>
             <section className={styles.info}>

@@ -7,7 +7,7 @@ export const Categorias = ({ categorias }) => {
       <h2>Busque por categoria:</h2>
       <div className={styles.container}>
         {categorias.map((categoria) => (
-          <div key={categoria.nome} className={styles.card}>
+          <div key={categoria.name} className={styles.card}>
             <div className={styles.imagemContainer}>
               <Image
                 width={130}
