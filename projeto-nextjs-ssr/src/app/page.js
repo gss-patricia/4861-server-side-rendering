@@ -1,19 +1,19 @@
 import styles from "./page.module.css";
 import { Categorias } from "./components/Categorias";
 import { Produtos } from "./components/Produtos";
+import {
+  buildApiUrl,
+  createFetchConfig,
+  API_ENDPOINTS,
+  ISR_CONFIG,
+} from "../../lib/config";
 
 // Função para buscar categorias da API interna (BFF)
-async function fetchCategories() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
-  const response = await fetch(`${baseUrl}/api/categories`, {
-    next: {
-      revalidate: 1800, // ISR: revalidar a cada 30 MINUTOS (produção)
-      tags: ["categories"], // Tag para revalidação manual
-    },
-  });
+const fetchCategories = async () => {
+  const response = await fetch(
+    buildApiUrl(API_ENDPOINTS.CATEGORIES),
+    createFetchConfig(ISR_CONFIG.CATEGORIES_TTL, ["categories"])
+  );
 
   if (!response.ok) {
     throw new Error(
@@ -22,22 +22,16 @@ async function fetchCategories() {
   }
 
   return await response.json();
-}
+};
 
 // Função para buscar produtos da API interna (BFF)
-async function fetchProducts() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
+const fetchProducts = async () => {
   const response = await fetch(
-    `${baseUrl}/api/products?featured=true&limit=6`,
-    {
-      next: {
-        revalidate: 1800, // ISR: revalidar a cada 30 MINUTOS (produção)
-        tags: ["products", "featured-products"], // Tags para revalidação manual
-      },
-    }
+    buildApiUrl(API_ENDPOINTS.PRODUCTS, { featured: true, limit: 6 }),
+    createFetchConfig(ISR_CONFIG.PRODUCTS_TTL, [
+      "products",
+      "featured-products",
+    ])
   );
 
   if (!response.ok) {
@@ -47,7 +41,7 @@ async function fetchProducts() {
   }
 
   return await response.json();
-}
+};
 
 // 🌟 Página com SSG + ISR
 export default async function Home() {
