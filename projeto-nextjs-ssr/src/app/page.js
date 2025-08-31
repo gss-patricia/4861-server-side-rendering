@@ -1,13 +1,19 @@
 import styles from "./page.module.css";
 import { Categorias } from "./components/Categorias";
 import { Produtos } from "./components/Produtos";
-import { buildApiUrl, API_ENDPOINTS } from "../../lib/config";
+import {
+  buildApiUrl,
+  createFetchConfig,
+  API_ENDPOINTS,
+  ISR_CONFIG,
+} from "../../lib/config";
 
-// Função para buscar categorias da API interna (BFF) - SSR PURO
+// Função para buscar categorias da API interna (BFF) - SSG + ISR
 const fetchCategories = async () => {
-  const response = await fetch(buildApiUrl(API_ENDPOINTS.CATEGORIES), {
-    cache: "no-store", // ← SSR puro: sempre fresh do servidor
-  });
+  const response = await fetch(
+    buildApiUrl(API_ENDPOINTS.CATEGORIES),
+    createFetchConfig(ISR_CONFIG.CATEGORIES_TTL, ["categories"])
+  );
 
   if (!response.ok) {
     throw new Error(
@@ -18,13 +24,11 @@ const fetchCategories = async () => {
   return await response.json();
 };
 
-// Função para buscar produtos da API interna (BFF) - SSR PURO
+// Função para buscar produtos da API interna (BFF) - SSG + ISR
 const fetchProducts = async () => {
   const response = await fetch(
     buildApiUrl(API_ENDPOINTS.PRODUCTS, { limit: 6 }),
-    {
-      cache: "no-store", // ← SSR puro: sempre fresh do servidor
-    }
+    createFetchConfig(30, ["products", "featured-products"])
   );
 
   if (!response.ok) {
@@ -36,9 +40,9 @@ const fetchProducts = async () => {
   return await response.json();
 };
 
-// 🌟 Página com SSR PURO (sempre dinâmica)
+// 🌟 Página com SSG + ISR
 export default async function Home() {
-  // Buscar dados frescos do servidor a cada request
+  // Buscar dados no build time e revalidar conforme TTL
   const [categorias, produtos] = await Promise.all([
     fetchCategories(),
     fetchProducts(),
