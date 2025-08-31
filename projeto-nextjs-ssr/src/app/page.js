@@ -27,7 +27,7 @@ const fetchCategories = async () => {
 // Função para buscar produtos da API interna (BFF)
 const fetchProducts = async () => {
   const response = await fetch(
-    buildApiUrl(API_ENDPOINTS.PRODUCTS, { featured: true, limit: 6 }),
+    buildApiUrl(API_ENDPOINTS.PRODUCTS, { limit: 6 }),
     createFetchConfig(ISR_CONFIG.PRODUCTS_TTL, [
       "products",
       "featured-products",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Button } from "../Button";
 import styles from "./page.module.css";
 
 const Produto = ({ produto }) => {
@@ -44,20 +45,33 @@ const Produto = ({ produto }) => {
             {produto?.tamanho?.length > 0 && (
               <div className={styles.sizes}>
                 {produto?.tamanho.map((tamanho) => (
-                  <button
+                  <Button
                     key={tamanho}
                     onClick={() => setSelectedSize(tamanho)}
-                    className={`${styles.sizeOption} ${
-                      selectedSize === tamanho && styles.selectedSize
-                    }`}
+                    variant={selectedSize === tamanho ? "primary" : "secondary"}
+                    size="small"
+                    className={styles.sizeOption}
                   >
                     {tamanho}
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
           </div>
-          <button className={styles.addToCart}>Adicionar à sacola</button>
+          <Button
+            variant="success"
+            size="large"
+            className={styles.addToCart}
+            onClick={() =>
+              console.log("Adicionar ao carrinho:", {
+                produto: produto.nome,
+                cor: selectedColor,
+                tamanho: selectedSize,
+              })
+            }
+          >
+            🛒 Adicionar à sacola
+          </Button>
         </div>
       </div>
     </section>

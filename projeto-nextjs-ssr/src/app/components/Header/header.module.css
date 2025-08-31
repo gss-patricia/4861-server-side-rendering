@@ -31,21 +31,6 @@
   color: #fff;
 }
 
-/* Estilo da barra de pesquisa */
-.search input {
-  padding: 10px;
-  margin-right: 16px;
-  color: #6c757d;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 160% */
-  width: 170px;
-  height: 38px;
-  flex-shrink: 0;
-  border: 1px solid #ced4da;
-}
-
 .search button {
   padding: 1px;
   background-color: transparent;
