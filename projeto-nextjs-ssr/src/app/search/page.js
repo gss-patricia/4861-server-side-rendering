@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSearch } from "../../hooks/useSearch";
 import { Button } from "../components/Button";
@@ -8,7 +9,8 @@ import { Input } from "../components/Input";
 import { ProductCard } from "../components/ProductCard";
 import styles from "./search.module.css";
 
-export default function SearchPage() {
+// 🔧 Componente interno que usa useSearchParams
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
 
@@ -120,5 +122,27 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+// 🌟 Componente principal com Suspense boundary
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h1>🔍 Buscar Produtos</h1>
+            <p>Carregando página de busca...</p>
+          </div>
+          <div className={styles.loading}>
+            <span className={styles.spinner}></span>
+            <span>Preparando busca...</span>
+          </div>
+        </div>
+      }
+    >
+      <SearchPageContent />
+    </Suspense>
   );
 }
