@@ -1,11 +1,10 @@
-import { supabase } from "../../../../../lib/supabase";
+import { fetchProductById } from "../../../../../lib/data-layer";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
     const { id } = params;
 
-    // Validar se o ID foi fornecido
     if (!id) {
       return NextResponse.json(
         { error: "ID do produto é obrigatório" },
@@ -13,39 +12,21 @@ export async function GET(request, { params }) {
       );
     }
 
-    // Buscar produto individual no Supabase
-    const { data: product, error } = await supabase
-      .from("products")
-      .select("name, description, price, image_src, colors, sizes")
-      .eq("id", id)
-      .eq("is_active", true)
-      .single(); // single() porque esperamos apenas 1 resultado
+    // 📊 Usar DATA LAYER (já retorna formato padrão com parsers)
+    const product = await fetchProductById(id);
 
-    if (error) {
-      console.error("Erro ao buscar produto:", error);
-
-      // Se produto não encontrado
-      if (error.code === "PGRST116") {
-        return NextResponse.json(
-          { error: "Produto não encontrado" },
-          { status: 404 }
-        );
-      }
-
+    if (!product) {
       return NextResponse.json(
-        { error: "Erro ao buscar produto" },
-        { status: 500 }
+        { error: "Produto não encontrado" },
+        { status: 404 }
       );
     }
 
-    // ✅ Retorna direto do Supabase (nomes em inglês, sem duplicação)
     return NextResponse.json(product, {
-      headers: {
-        "Cache-Control": "no-store", // Sem cache na API (ISR gerencia o cache)
-      },
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
-    console.error("Erro interno:", error);
+    console.error("❌ Erro na API de produto individual:", error);
     return NextResponse.json(
       { error: "Erro interno do servidor" },
       { status: 500 }

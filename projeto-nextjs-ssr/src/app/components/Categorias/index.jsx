@@ -12,7 +12,7 @@ export const Categorias = ({ categorias }) => {
               <Image
                 width={130}
                 height={157}
-                src={categoria.image_src}
+                src={categoria.imageSrc}
                 alt={categoria.name}
                 style={{
                   objectFit: "contain",

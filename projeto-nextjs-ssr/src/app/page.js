@@ -1,51 +1,15 @@
 import styles from "./page.module.css";
 import { Categorias } from "./components/Categorias";
 import { Produtos } from "./components/Produtos";
-import {
-  buildApiUrl,
-  createFetchConfig,
-  API_ENDPOINTS,
-  ISR_CONFIG,
-} from "../../lib/config";
+import { fetchCategories, fetchProducts } from "../../lib/data-layer";
 
-// Função para buscar categorias da API interna (BFF) - SSG + ISR
-const fetchCategories = async () => {
-  const response = await fetch(
-    buildApiUrl(API_ENDPOINTS.CATEGORIES),
-    createFetchConfig(ISR_CONFIG.CATEGORIES_TTL, ["categories"])
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Erro ao buscar categorias: ${response.status} ${response.statusText}`
-    );
-  }
-
-  return await response.json();
-};
-
-// Função para buscar produtos da API interna (BFF) - SSG + ISR
-const fetchProducts = async () => {
-  const response = await fetch(
-    buildApiUrl(API_ENDPOINTS.PRODUCTS, { limit: 6 }),
-    createFetchConfig(30, ["products", "featured-products"])
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Erro ao buscar produtos: ${response.status} ${response.statusText}`
-    );
-  }
-
-  return await response.json();
-};
-
-// 🌟 Página com SSG + ISR
+// 🌟 Página com SSG + ISR para PRODUTOS via API Externa
 export default async function Home() {
-  // Buscar dados no build time e revalidar conforme TTL
+  // 🗂️ CATEGORIAS: Supabase direto (sem ISR)
+  // 🛍️ PRODUTOS: API externa (npoint) com ISR (60s) ✅
   const [categorias, produtos] = await Promise.all([
-    fetchCategories(),
-    fetchProducts(),
+    fetchCategories(), // ← Supabase direto (sem revalidate)
+    fetchProducts({ limit: 6 }), // ← API externa com next: { revalidate: 60 }
   ]);
 
   return (
@@ -70,3 +34,6 @@ export const metadata = {
     type: "website",
   },
 };
+
+// ❌ REMOVIDO: export const revalidate = 60;
+// ✅ AGORA: ISR apenas para produtos via fetch da API externa
