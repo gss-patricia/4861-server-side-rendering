@@ -1,0 +1,21 @@
+.products {
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0;
+}
+
+.products h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}

@@ -1,87 +1,87 @@
-# Welcome to React Router!
+# 🎓 React Router v7 (Remix) - SSR & Streaming
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Projeto base para o curso de SSR com React Router v7, demonstrando as principais funcionalidades do framework mode.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 🚀 Como executar
 
-## Features
+1. **Instalar dependências:**
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+   ```bash
+   npm install
+   ```
 
-## Getting Started
+2. **Configurar variáveis de ambiente:**
 
-### Installation
+   ```bash
+   cp env.example .env
+   # Edite o .env com suas credenciais do Supabase
+   ```
 
-Install the dependencies:
+3. **Executar em desenvolvimento:**
 
-```bash
-npm install
-```
+   ```bash
+   npm run dev
+   ```
 
-### Development
+4. **Build para produção:**
+   ```bash
+   npm run build
+   npm run start
+   ```
 
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## 📁 Estrutura do Projeto
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app/
+├── components/          # 🎨 Componentes de UI
+│   ├── Header/         # Cabeçalho com navegação
+│   ├── CategoryGrid/   # Grid de categorias
+│   ├── ProductGrid/    # Grid de produtos
+│   └── ProductCard/    # Card individual de produto
+├── lib/                # 🛠️ Utilitários
+│   └── supabase.ts    # Configuração do Supabase
+├── routes/             # 🛤️ File-based routing
+│   └── home.tsx       # Página inicial (dados mockados)
+├── app.css            # 🎨 Estilos globais
+└── root.tsx           # 🏠 Layout raiz
 ```
 
-## Styling
+## 🎯 Objetivos do Curso
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+### **Vídeo 1 - História & Fundamentos**
+
+- ✅ **Projeto configurado** sem Tailwind
+- ✅ **CSS Modules** ativo
+- ✅ **Componentes** migrados do Next.js
+- ✅ **Supabase** configurado
+
+### **Vídeo 2 - SSR com Loaders**
+
+- ⏳ Resource Routes (`api.categories.ts`, `api.products.ts`)
+- ⏳ Loader na Home (`useLoaderData`)
+- ⏳ Demonstração SSR real
+
+### **Vídeo 3 - Streaming**
+
+- ⏳ Defer pattern
+- ⏳ Suspense + Await
+- ⏳ Progressive loading
+
+## 🔧 Tecnologias
+
+- **React Router v7** (Framework Mode)
+- **TypeScript**
+- **CSS Modules**
+- **Supabase** (Database)
+- **Vite** (Build tool integrado)
+
+## 📝 Próximos Passos
+
+1. **Configurar Supabase** com tabelas `categories` e `products`
+2. **Implementar loaders** para buscar dados reais
+3. **Adicionar streaming** com defer + Suspense
+4. **Deploy** para produção
 
 ---
 
-Built with ❤️ using React Router.
+**🎬 Pronto para gravar o curso!** Este projeto base está configurado e funcional para demonstrar SSR, loaders e streaming com React Router v7.

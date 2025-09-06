@@ -1,0 +1,59 @@
+/* Categories.module.css */
+.categories {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  margin: 40px 0;
+}
+
+.categories h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.card {
+  background-color: #daff01;
+  text-align: center;
+  width: 160px;
+  height: 192px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.imageContainer {
+  padding: 10px 10px 0 10px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1rem;
+  color: #fff;
+  background: #000;
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  margin: 0;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
