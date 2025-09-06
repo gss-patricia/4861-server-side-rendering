@@ -1,43 +1,32 @@
-import { Link } from "react-router";
+import { Button } from "../Button";
+import { Badge } from "../Badge";
+import { Image } from "../Image";
 import styles from "./productCard.module.css";
 
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  image_src: string;
-  is_featured?: boolean;
-};
-
-type ProductCardProps = {
-  product: Product;
-};
-
-export function ProductCard({ product }: ProductCardProps) {
-  console.log(product);
+export const ProductCard = ({ product }) => {
   return (
     <div className={styles.card}>
       <figure style={{ position: "relative" }}>
-        <img
+        <Image
           width={350}
           height={422}
-          src={product.image_src}
+          src={product.imageSrc}
           alt={product.name}
+          style={{
+            objectFit: "cover",
+          }}
           className={styles.image}
         />
-        {product.is_featured && (
-          <span className={styles.badge}>⭐ Destaque</span>
-        )}
+        {product.isFeatured && <Badge>⭐ Destaque</Badge>}
       </figure>
       <section className={styles.info}>
         <p className={styles.title}>{product.name}</p>
         <div className={styles.description}>{product.description}</div>
         <div className={styles.price}>{product.price}</div>
-        <Link to={`/produto/${product.id}`} className={styles.button}>
+        <Button variant="primary" size="medium" href={`/produto/${product.id}`}>
           Ver mais
-        </Link>
+        </Button>
       </section>
     </div>
   );
-}
+};

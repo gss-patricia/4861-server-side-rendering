@@ -1,18 +1,22 @@
+import { Image } from "../Image";
 import { Link } from "react-router";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Button } from "../Button";
+import { Input } from "../Input";
 import styles from "./header.module.css";
 import logo from "./logo.png";
 
-export function Header() {
+export const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // No React Router v7, navegação será feita via Link ou Form
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     } else {
-      window.location.href = "/search";
+      navigate("/search");
     }
   };
 
@@ -20,7 +24,7 @@ export function Header() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Link to="/">
-          <img src={logo} alt="Meteora logo" width={100} height={22} />
+          <Image src={logo} alt="Meteora logo" width={100} height={22} />
         </Link>
         <ul>
           <li>
@@ -36,17 +40,17 @@ export function Header() {
       </nav>
       <div className={styles.search}>
         <form onSubmit={handleSearch}>
-          <input
-            className={styles.searchInput}
+          <Input
+            variant="header"
             placeholder="Digite o produto"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" className={styles.searchButton}>
+          <Button type="submit" variant="primary" size="medium">
             Buscar
-          </button>
+          </Button>
         </form>
       </div>
     </header>
   );
-}
+};

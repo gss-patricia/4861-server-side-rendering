@@ -5,9 +5,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 350px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -17,7 +15,6 @@
 
 .card figure {
   margin: 0;
-  position: relative;
 }
 
 .image {
@@ -30,19 +27,6 @@
 
 .card:hover .image {
   transform: scale(1.02);
-}
-
-.badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #ffc107;
-  color: #000;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 1;
 }
 
 .info {
@@ -77,21 +61,6 @@
   font-weight: 700;
   line-height: 23px;
   margin-bottom: 10px;
-}
-
-.button {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: #9353ff;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-}
-
-.button:hover {
-  background-color: #7c3aed;
 }
 
 /* 📱 Responsividade */
