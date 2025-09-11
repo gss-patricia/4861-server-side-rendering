@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSearch } from "../../hooks/useSearch";
 import { Button } from "../components/Button";
@@ -8,23 +7,17 @@ import { Badge } from "../components/Badge";
 import { Input } from "../components/Input";
 import { ProductCard } from "../components/ProductCard";
 import styles from "./search.module.css";
+import { useState } from "react";
 
-// 🔧 Componente interno que usa useSearchParams
-function SearchPageContent() {
-  const searchParams = useSearchParams();
-  const initialQuery = searchParams.get("q") || "";
-
-  const {
-    query,
-    results,
-    loading,
-    error,
-    hasSearched,
-    isEmpty,
-    hasResults,
-    setQuery,
-    clearSearch,
-  } = useSearch(initialQuery, 300); // 300ms debounce
+export default function SearchPage() {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [hasResults, setHasResults] = useState(false);
+  const [clearSearch, setClearSearch] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -122,27 +115,5 @@ function SearchPageContent() {
         </div>
       )}
     </div>
-  );
-}
-
-// 🌟 Componente principal com Suspense boundary
-export default function SearchPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <h1>🔍 Buscar Produtos</h1>
-            <p>Carregando página de busca...</p>
-          </div>
-          <div className={styles.loading}>
-            <span className={styles.spinner}></span>
-            <span>Preparando busca...</span>
-          </div>
-        </div>
-      }
-    >
-      <SearchPageContent />
-    </Suspense>
   );
 }
