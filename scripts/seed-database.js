@@ -3,7 +3,7 @@
 /**
  * 🌱 Script de Seed - Meteora Store
  *
- * Popula o banco Supabase com dados iniciais
+ * Popula o banco Supabase com dados iniciais para desenvolvimento local
  *
  * Uso:
  * npm run seed
